@@ -1,0 +1,39 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/dynamixel_sdk/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/face_detection/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_action_module/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_balance_control/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_ball_detector/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_base_module/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_demo/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_direct_control_module/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_head_control_module/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_kinematics_dynamics/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_online_walking_module/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_tuning_module/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/op3_walking_module/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/open_cr_module/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/robotis_controller/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/robotis_device/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/robotis_framework_common/include/**",
+        "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_all/no4_ROBOTIS-OP3-Demo-master/src/robotis_math/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

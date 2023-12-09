@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<launch>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find op3_description)/urdf/robotis_op3.urdf.xacro'"/>
+
+<!--___________________________________________________________________________Sua lai : Them phan joint control _______________________________________-->
+  <!-- <arg name="gui" default="True" />
+  <param name="use_gui" value="$(arg gui)" />
+  <node if="$(arg gui)" name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" output="screen"/> -->
+  <!-- Send fake joint values and monitoring present joint angle -->
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+    <param name="use_gui" value="TRUE"/>
+    <!--___________________________________________________________________________Sua lai : Command dong code nay _______________________________________-->
+    <!-- <rosparam param="/source_list">[/robotis/present_joint_states]</rosparam> -->
+  </node>
+  <!-- Combine joint values -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <!--___________________________________________________________________________Sua lai : Command dong code nay _______________________________________-->
+    <!-- <remap from="/joint_states" to="/robotis/present_joint_states" /> -->
+  </node>
+  <!-- Show in Rviz   -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find op3_bringup)/rviz/op3_bringup.rviz"/>
+</launch>

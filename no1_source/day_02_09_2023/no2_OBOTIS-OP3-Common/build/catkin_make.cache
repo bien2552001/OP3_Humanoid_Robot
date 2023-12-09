@@ -1,0 +1,2 @@
+op3_description:op3_gazebo:robotis_op3_common
+-DCATKIN_DEVEL_PREFIX=/home/bien/Desktop/op3_11_2023/no2_OBOTIS-OP3-Common/devel -DCMAKE_INSTALL_PREFIX=/home/bien/Desktop/op3_11_2023/no2_OBOTIS-OP3-Common/install -G Unix Makefiles
