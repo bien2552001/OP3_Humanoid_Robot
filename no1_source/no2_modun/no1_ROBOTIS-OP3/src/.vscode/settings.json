@@ -1,0 +1,13 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "files.associations": {
+        "vector": "cpp"
+    }
+}

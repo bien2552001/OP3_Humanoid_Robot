@@ -1,0 +1,6 @@
+devel_space: /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no2_ROBOTIS-OP3-Common/devel
+install: false
+install_space: /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no2_ROBOTIS-OP3-Common/install
+profile: default
+source_space: /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no2_ROBOTIS-OP3-Common/src
+workspace: /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no2_ROBOTIS-OP3-Common

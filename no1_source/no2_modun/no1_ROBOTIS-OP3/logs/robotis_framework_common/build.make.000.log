@@ -1,0 +1,3 @@
+[35m[1mScanning dependencies of target robotis_framework_common[0m
+[100%] [32m[1mLinking CXX shared library /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/.private/robotis_framework_common/lib/librobotis_framework_common.so[0m
+[100%] Built target robotis_framework_common

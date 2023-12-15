@@ -1,0 +1,15 @@
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/share/dynamixel_sdk/cmake/dynamixel_sdkConfig.cmake
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/share/dynamixel_sdk/cmake/dynamixel_sdkConfig-version.cmake
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/libdynamixel_sdk.so
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/python3/dist-packages/dynamixel_sdk/__init__.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/port_handler.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/packet_handler.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/protocol2_packet_handler.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/cmake.lock
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/group_sync_read.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/group_bulk_read.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/robotis_def.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/group_bulk_write.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/group_sync_write.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/dynamixel_sdk/protocol1_packet_handler.py
+Symlinking /home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no1_ROBOTIS-OP3/devel/lib/pkgconfig/dynamixel_sdk.pc
