@@ -20,22 +20,53 @@
 
 using namespace robotis_op;
 
+// Constructor của lớp OnlineWalkingModule
 OnlineWalkingModule::OnlineWalkingModule()
+  // Chu kỳ kiểm soát (thời gian giữa các lần kiểm soát liên tiếp)
   : control_cycle_sec_(0.008),
+
+    // Biến đánh dấu trạng thái di chuyển của robot
     is_moving_(false),
+
+    // Biến đánh dấu trạng thái cân bằng của robot
     is_balancing_(false),
+
+    // Biến đánh dấu trạng thái cập nhật offset của robot
     is_offset_updating_(false),
+
+    // Biến đánh dấu trạng thái khởi tạo mục tiêu của robot
     goal_initialize_(false),
+
+    // Biến đánh dấu trạng thái khởi tạo kiểm soát cân bằng
     balance_control_initialize_(false),
+
+    // Biến đánh dấu trạng thái khởi tạo offset của cơ thể
     body_offset_initialize_(false),
+
+    // Biến đánh dấu trạng thái khởi tạo kiểm soát khớp
     joint_control_initialize_(false),
+
+    // Biến đánh dấu trạng thái khởi tạo kiểm soát toàn bộ cơ thể
     wholebody_initialize_(false),
+
+    // Biến đánh dấu trạng thái khởi tạo kiểm soát đi bộ
     walking_initialize_(false),
+
+    // Biến đánh dấu trạng thái sử dụng bước chân 2D hay không
     is_foot_step_2d_(false),
+
+    // Giai đoạn đi bộ hiện tại (DSP hoặc SSP)
     walking_phase_(DSP),
+
+    // Tổng khối lượng của robot
     total_mass_(3.5),
+
+    // Khoảng cách giữa hai chân của robot
     foot_distance_(0.07)
+
 {
+  // Thân hàm constructor, có thể thêm các xử lý khởi tạo khác nếu cần
+
   enable_       = false;
   module_name_  = "online_walking_module";
   control_mode_ = robotis_framework::PositionControl;
@@ -57,6 +88,7 @@ OnlineWalkingModule::OnlineWalkingModule()
   result_["l_knee"]       = new robotis_framework::DynamixelState();
   result_["l_ank_pitch"]  = new robotis_framework::DynamixelState();
   result_["l_ank_roll"]   = new robotis_framework::DynamixelState();
+
 
   /* leg */
   joint_name_to_id_["r_hip_yaw"]    = 1;

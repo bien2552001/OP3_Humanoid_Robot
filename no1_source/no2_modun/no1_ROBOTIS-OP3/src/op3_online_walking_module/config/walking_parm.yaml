@@ -1,6 +1,6 @@
-walking_param :
-  dsp_ratio : 0.2
-  lipm_height : 0.7
-  foot_height_max : 0.1
-  zmp_offset_x : 0.0
-  zmp_offset_y : 0.0
+walking_param:
+  dsp_ratio: 0.2          # Tỉ lệ thời gian chuyển đổi giữa chuyển động đôi chân (Double Support Phase)
+  lipm_height: 0.7        # Chiều cao của hệ thống Inverted Pendulum (LIPM - Linear Inverted Pendulum Mode)
+  foot_height_max: 0.1    # Chiều cao tối đa của chân (được sử dụng trong quá trình chuyển trọng tâm)
+  zmp_offset_x: 0.0       # Độ lệch ZMP (Zero Moment Point) theo trục x
+  zmp_offset_y: 0.0       # Độ lệch ZMP (Zero Moment Point) theo trục y

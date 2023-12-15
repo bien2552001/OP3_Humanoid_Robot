@@ -1,8 +1,0 @@
-prefix=/home/bien/ros1/ros1/clone_project/humainoid/op3/project_test/op3_test/op3_test1/no2_ROBOTIS-OP3-Common/devel/.private/op3_description
-
-Name: op3_description
-Description: Description of op3_description
-Version: 0.1.1
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

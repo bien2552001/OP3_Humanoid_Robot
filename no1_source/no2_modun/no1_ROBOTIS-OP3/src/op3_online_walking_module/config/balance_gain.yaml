@@ -1,53 +1,70 @@
 ########## Gain ########
-# by gyro
-foot_roll_gyro_p_gain : 0.0
-foot_roll_gyro_d_gain : 0.0
 
-foot_pitch_gyro_p_gain : 0.0
-foot_pitch_gyro_d_gain : 0.0
+# by gyro
+# Gain được điều chỉnh bởi thông số gyro (động cơ giữ cân bằng bằng cách đo tốc độ góc)
+foot_roll_gyro_p_gain : 0.0  # Hệ số kiểm soát P cho cân bằng góc (Roll) dựa trên thông số gyro
+foot_roll_gyro_d_gain : 0.0  # Hệ số kiểm soát D cho cân bằng góc (Roll) dựa trên thông số gyro
+
+foot_pitch_gyro_p_gain : 0.0  # Hệ số kiểm soát P cho cân bằng góc (Pitch) dựa trên thông số gyro
+foot_pitch_gyro_d_gain : 0.0  # Hệ số kiểm soát D cho cân bằng góc (Pitch) dựa trên thông số gyro
 
 # by imu
-foot_roll_angle_p_gain : 0.0
-foot_roll_angle_d_gain : 0.0
+# Gain được điều chỉnh bởi thông số imu (đơn vị đo góc)
+foot_roll_angle_p_gain : 0.0  # Hệ số kiểm soát P cho cân bằng góc (Roll) dựa trên thông số imu
+foot_roll_angle_d_gain : 0.0  # Hệ số kiểm soát D cho cân bằng góc (Roll) dựa trên thông số imu
 
-foot_pitch_angle_p_gain : 0.0
-foot_pitch_angle_d_gain : 0.0
+foot_pitch_angle_p_gain : 0.0  # Hệ số kiểm soát P cho cân bằng góc (Pitch) dựa trên thông số imu
+foot_pitch_angle_d_gain : 0.0  # Hệ số kiểm soát D cho cân bằng góc (Pitch) dựa trên thông số imu
 
 # by ft sensor
-foot_x_force_p_gain : 0.0
-foot_x_force_d_gain : 0.0
+# Gain điều chỉnh dựa trên cảm biến lực (ft sensor)
 
-foot_y_force_p_gain : 0.0
-foot_y_force_d_gain : 0.0
+foot_x_force_p_gain : 0.0  # Hệ số kiểm soát P cho lực theo hướng X (cảm biến ft)
+foot_x_force_d_gain : 0.0  # Hệ số kiểm soát D cho lực theo hướng X (cảm biến ft)
 
-foot_z_force_p_gain : 0.0
-foot_z_force_d_gain : 0.0
+foot_y_force_p_gain : 0.0  # Hệ số kiểm soát P cho lực theo hướng Y (cảm biến ft)
+foot_y_force_d_gain : 0.0  # Hệ số kiểm soát D cho lực theo hướng Y (cảm biến ft)
 
-foot_roll_torque_p_gain : 0.0
-foot_roll_torque_d_gain : 0.0
+foot_z_force_p_gain : 0.0  # Hệ số kiểm soát P cho lực theo hướng Z (cảm biến ft)
+foot_z_force_d_gain : 0.0  # Hệ số kiểm soát D cho lực theo hướng Z (cảm biến ft)
 
-foot_pitch_torque_p_gain : 0.0
-foot_pitch_torque_d_gain : 0.0
+foot_roll_torque_p_gain : 0.0  # Hệ số kiểm soát P cho mô-men xoay (torque) theo hướng Roll (cảm biến ft)
+foot_roll_torque_d_gain : 0.0  # Hệ số kiểm soát D cho mô-men xoay (torque) theo hướng Roll (cảm biến ft)
+
+foot_pitch_torque_p_gain : 0.0  # Hệ số kiểm soát P cho mô-men xoay (torque) theo hướng Pitch (cảm biến ft)
+foot_pitch_torque_d_gain : 0.0  # Hệ số kiểm soát D cho mô-men xoay (torque) theo hướng Pitch (cảm biến ft)
+
+
 
 ########## CUT OFF FREQUENCY ##########
+
+# Cut-off Frequency (Tần số cắt) cho bộ lọc
+# Dữ liệu từ các cảm biến sẽ được lọc thông qua bộ lọc này để giảm nhiễu
+
+
 # by gyro
-roll_gyro_cut_off_frequency  : 30.0
-pitch_gyro_cut_off_frequency : 30.0
+# Dữ liệu từ cảm biến gyroscope
+roll_gyro_cut_off_frequency  : 30.0  # Tần số cắt cho dữ liệu góc Roll từ gyroscope
+pitch_gyro_cut_off_frequency : 30.0  # Tần số cắt cho dữ liệu góc Pitch từ gyroscope
+
+
 
 # by imu
-roll_angle_cut_off_frequency  : 30.0
-pitch_angle_cut_off_frequency : 30.0
+# Dữ liệu từ cảm biến IMU (Inertial Measurement Unit)
+roll_angle_cut_off_frequency  : 30.0  # Tần số cắt cho dữ liệu góc Roll từ IMU
+pitch_angle_cut_off_frequency : 30.0  # Tần số cắt cho dữ liệu góc Pitch từ IMU
+
 
 # by ft sensor
-foot_x_force_cut_off_frequency : 30.0
-foot_y_force_cut_off_frequency : 30.0
-foot_z_force_cut_off_frequency : 30.0
-foot_roll_torque_cut_off_frequency : 30.0
-foot_pitch_torque_cut_off_frequency : 30.0
+# Dữ liệu từ cảm biến lực (ft sensor)
+foot_x_force_cut_off_frequency : 30.0  # Tần số cắt cho lực theo hướng X từ cảm biến lực
+foot_y_force_cut_off_frequency : 30.0  # Tần số cắt cho lực theo hướng Y từ cảm biến lực
+foot_z_force_cut_off_frequency : 30.0  # Tần số cắt cho lực theo hướng Z từ cảm biến lực
+foot_roll_torque_cut_off_frequency : 30.0  # Tần số cắt cho mô-men xoay (torque) theo hướng Roll từ cảm biến lực
+foot_pitch_torque_cut_off_frequency : 30.0  # Tần số cắt cho mô-men xoay (torque) theo hướng Pitch từ cảm biến lực
 
-###
-
-balance_hip_roll_gain    : 0.0 # 0.35  #0.0 #
-balance_knee_gain        : 0.0 # 0.3   #0.0 #
-balance_ankle_roll_gain  : 0.0 # 0.7   #0.0 #
-balance_ankle_pitch_gain : 0.0 # 0.9   #0.0 #
+# Các hệ số Gain liên quan đến cân bằc (Balance)
+balance_hip_roll_gain    : 0.0  # Hệ số Gain cho cân bằc theo hướng Hip Roll
+balance_knee_gain        : 0.0  # Hệ số Gain cho cân bằc theo hướng Knee
+balance_ankle_roll_gain  : 0.0  # Hệ số Gain cho cân bằc theo hướng Ankle Roll
+balance_ankle_pitch_gain : 0.0  # Hệ số Gain cho cân bằc theo hướng Ankle Pitch

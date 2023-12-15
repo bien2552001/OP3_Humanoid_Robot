@@ -780,110 +780,140 @@ namespace robotis_op
     }
 
     // set result
-// Thiết lập giá trị mong muốn cho các joint và có thể thêm cài đặt PID ở đây nếu cần
-for (std::map<std::string, robotis_framework::DynamixelState *>::iterator state_it = result_.begin();
-     state_it != result_.end(); state_it++)
-{
-  std::string joint_name = state_it->first;
-  int joint_index = joint_table_[joint_name];
+    // Thiết lập giá trị mong muốn cho các joint và có thể thêm cài đặt PID ở đây nếu cần
+    for (std::map<std::string, robotis_framework::DynamixelState *>::iterator state_it = result_.begin();
+         state_it != result_.end(); state_it++)
+    {
+      std::string joint_name = state_it->first;
+      int joint_index = joint_table_[joint_name];
 
-  // Thiết lập giá trị mong muốn cho joint
-  result_[joint_name]->goal_position_ = target_position_.coeff(0, joint_index);
+      // Thiết lập giá trị mong muốn cho joint
+      result_[joint_name]->goal_position_ = target_position_.coeff(0, joint_index);
 
-  // Todo: Cài đặt các thông số PID cho các joint của chân nếu cần
-  // result_[joint_name]->position_p_gain_ = walking_param_.p_gain;
-  // result_[joint_name]->position_i_gain_ = walking_param_.i_gain;
-  // result_[joint_name]->position_d_gain_ = walking_param_.d_gain;
-}
+      // Todo: Cài đặt các thông số PID cho các joint của chân nếu cần
+      // result_[joint_name]->position_p_gain_ = walking_param_.p_gain;
+      // result_[joint_name]->position_i_gain_ = walking_param_.i_gain;
+      // result_[joint_name]->position_d_gain_ = walking_param_.d_gain;
+    }
 
-// Cập nhật thời gian
-if (real_running_ == true)
-{
-  time_ += time_unit;
-  if (time_ >= period_time_)
-  {
-    time_ = 0;
-    // Đặt giá trị biên độ di chuyển x trước đó
-    previous_x_move_amplitude_ = walking_param_.x_move_amplitude * 0.5;
+    // Cập nhật thời gian
+    if (real_running_ == true)
+    {
+      time_ += time_unit;
+      if (time_ >= period_time_)
+      {
+        time_ = 0;
+        // Đặt giá trị biên độ di chuyển x trước đó
+        previous_x_move_amplitude_ = walking_param_.x_move_amplitude * 0.5;
+      }
+    }
   }
-}
 
-  }
-
-
-
-
-
+  /**
+   * @brief Cập nhật tham số của quá trình đi bộ dựa trên thời gian.
+   *
+   * @param time_unit Thời gian từng đơn vị.
+   *
+   * Hàm này cập nhật tham số cho quá trình đi bộ dựa trên thời gian, đặc biệt là trong giai đoạn đầu tiên.
+   * Nếu quá trình kiểm soát không chạy và không có di chuyển dự kiến, đặt cờ `real_running_` thành false để
+   * thông báo rằng robot không thực sự di chuyển. Ngược lại, cập nhật các tham số di chuyển và góc quay
+   * về giá trị khởi tạo.
+   *
+   * @note Hàm này được tích hợp trong quá trình kiểm soát chuyển động của robot.
+   */
   void WalkingModule::processPhase(const double &time_unit)
   {
-    // Update walk parameters
+    // Cập nhật tham số đi bộ
+
+    // Nếu là lần đầu tiên (time_ == 0)
     if (time_ == 0)
     {
+      // Cập nhật tham số thời gian
       updateTimeParam();
+
+      // Đặt giai đoạn là PHASE0
       phase_ = PHASE0;
-      if (ctrl_running_ == false)
+
+      // Nếu quá trình kiểm soát không chạy
+      if (!ctrl_running_)
       {
+        // Nếu không có di chuyển dự kiến
         if (x_move_amplitude_ == 0 && y_move_amplitude_ == 0 && a_move_amplitude_ == 0)
         {
+          // Đặt cờ không chạy thực sự
           real_running_ = false;
         }
         else
         {
-          // set walking param to init
+          // Đặt các tham số di chuyển về giá trị khởi tạo
           walking_param_.x_move_amplitude = 0;
           walking_param_.y_move_amplitude = 0;
           walking_param_.angle_move_amplitude = 0;
 
+          // Đặt biên độ di chuyển theo trục x về giá trị trước đó
           previous_x_move_amplitude_ = 0;
         }
       }
     }
 
-
-
-    
-    else if (time_ >= (phase1_time_ - time_unit / 2) && time_ < (phase1_time_ + time_unit / 2)) // the position of left foot is the highest.
+    // Nếu thời gian nằm trong khoảng chuyển động của giai đoạn 1 (phase1_time_)
+    else if (time_ >= (phase1_time_ - time_unit / 2) && time_ < (phase1_time_ + time_unit / 2))
     {
       updateMovementParam();
-      phase_ = PHASE1;
+      phase_ = PHASE1; // Gán giai đoạn là PHASE1
     }
-    else if (time_ >= (phase2_time_ - time_unit / 2) && time_ < (phase2_time_ + time_unit / 2)) // middle of double support state
+    // Nếu thời gian nằm trong khoảng chuyển động của giai đoạn 2 (phase2_time_)
+    else if (time_ >= (phase2_time_ - time_unit / 2) && time_ < (phase2_time_ + time_unit / 2))
     {
       updateTimeParam();
 
+      // Đặt thời gian là phase2_time_
       time_ = phase2_time_;
-      phase_ = PHASE2;
+      phase_ = PHASE2; // Gán giai đoạn là PHASE2
+
+      // Nếu quá trình kiểm soát không chạy
       if (ctrl_running_ == false)
       {
+        // Nếu biên độ di chuyển theo các trục là 0
         if (x_move_amplitude_ == 0 && y_move_amplitude_ == 0 && a_move_amplitude_ == 0)
         {
-          real_running_ = false;
+          real_running_ = false; // Không chạy thực sự
         }
         else
         {
-          // set walking param to init
+          // Đặt tham số đi bộ về giá trị khởi tạo
           walking_param_.x_move_amplitude = previous_x_move_amplitude_;
           walking_param_.y_move_amplitude = 0;
           walking_param_.angle_move_amplitude = 0;
         }
       }
     }
-    else if (time_ >= (phase3_time_ - time_unit / 2) && time_ < (phase3_time_ + time_unit / 2)) // the position of right foot is the highest.
+
+    // Nếu thời gian nằm trong khoảng chuyển động của giai đoạn 3 (phase3_time_)
+    else if (time_ >= (phase3_time_ - time_unit / 2) && time_ < (phase3_time_ + time_unit / 2))
     {
       updateMovementParam();
-      phase_ = PHASE3;
+      phase_ = PHASE3; // Gán giai đoạn là PHASE3
     }
   }
 
+  /**
+   * Tính toán góc chân cho mô hình đi bộ dựa trên các tham số vị trí và tham số khác.
+   *
+   * @param leg_angle Con trỏ lưu trữ góc chân tính toán, giá trị sẽ được cập nhật bởi hàm.
+   * @return Trả về true nếu tính toán thành công, ngược lại trả về false nếu có lỗi hoặc điều kiện không hợp lệ.
+   */
   bool WalkingModule::computeLegAngle(double *leg_angle)
   {
+    // Khai báo các biến cần thiết
     Pose3D swap, right_leg_move, left_leg_move;
     double pelvis_offset_r, pelvis_offset_l;
     double ep[12];
 
+    // Cập nhật các tham số vị trí của mô hình đi bộ
     updatePoseParam();
 
-    // Compute endpoints
+    // Tính toán các điểm cuối của mô hình đi bộ trong không gian 3D
     swap.x = wSin(time_, x_swap_period_time_, x_swap_phase_shift_, x_swap_amplitude_, x_swap_amplitude_shift_);
     swap.y = wSin(time_, y_swap_period_time_, y_swap_phase_shift_, y_swap_amplitude_, y_swap_amplitude_shift_);
     swap.z = wSin(time_, z_swap_period_time_, z_swap_phase_shift_, z_swap_amplitude_, z_swap_amplitude_shift_);
@@ -891,8 +921,10 @@ if (real_running_ == true)
     swap.pitch = 0.0;
     swap.yaw = 0.0;
 
+    // Kiểm tra nếu thời điểm hiện tại (time_) nhỏ hơn hoặc bằng thời điểm bắt đầu Single Support Phase của chân trái (l_ssp_start_time_)
     if (time_ <= l_ssp_start_time_)
     {
+      // Tính toán vị trí di chuyển của chân trái (left_leg_move) dựa trên các tham số và thời điểm hiện tại
       left_leg_move.x = wSin(l_ssp_start_time_, x_move_period_time_,
                              x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * l_ssp_start_time_, x_move_amplitude_,
                              x_move_amplitude_shift_);
@@ -905,6 +937,8 @@ if (real_running_ == true)
       left_leg_move.yaw = wSin(l_ssp_start_time_, a_move_period_time_,
                                a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * l_ssp_start_time_,
                                a_move_amplitude_, a_move_amplitude_shift_);
+
+      // Tính toán vị trí di chuyển của chân phải (right_leg_move) dựa trên các tham số và thời điểm hiện tại
       right_leg_move.x = wSin(l_ssp_start_time_, x_move_period_time_,
                               x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * l_ssp_start_time_,
                               -x_move_amplitude_, -x_move_amplitude_shift_);
@@ -917,11 +951,16 @@ if (real_running_ == true)
       right_leg_move.yaw = wSin(l_ssp_start_time_, a_move_period_time_,
                                 a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * l_ssp_start_time_,
                                 -a_move_amplitude_, -a_move_amplitude_shift_);
+
+      // Đặt offset của hông trái và hông phải thành 0
       pelvis_offset_l = 0;
       pelvis_offset_r = 0;
     }
+
+    // Kiểm tra nếu thời điểm hiện tại (time_) nằm trong khoảng (l_ssp_start_time_, l_ssp_end_time_]
     else if (time_ <= l_ssp_end_time_)
     {
+      // Tính toán vị trí di chuyển của chân trái (left_leg_move) dựa trên các tham số và thời điểm hiện tại
       left_leg_move.x = wSin(time_, x_move_period_time_,
                              x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * l_ssp_start_time_, x_move_amplitude_,
                              x_move_amplitude_shift_);
@@ -934,6 +973,8 @@ if (real_running_ == true)
       left_leg_move.yaw = wSin(time_, a_move_period_time_,
                                a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * l_ssp_start_time_,
                                a_move_amplitude_, a_move_amplitude_shift_);
+
+      // Tính toán vị trí di chuyển của chân phải (right_leg_move) dựa trên các tham số và thời điểm hiện tại
       right_leg_move.x = wSin(time_, x_move_period_time_,
                               x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * l_ssp_start_time_,
                               -x_move_amplitude_, -x_move_amplitude_shift_);
@@ -946,6 +987,8 @@ if (real_running_ == true)
       right_leg_move.yaw = wSin(time_, a_move_period_time_,
                                 a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * l_ssp_start_time_,
                                 -a_move_amplitude_, -a_move_amplitude_shift_);
+
+      // Tính toán offset của hông trái và hông phải dựa trên thời điểm hiện tại và các tham số khác
       pelvis_offset_l = wSin(time_, z_move_period_time_,
                              z_move_phase_shift_ + 2 * M_PI / z_move_period_time_ * l_ssp_start_time_, pelvis_swing_ / 2,
                              pelvis_swing_ / 2);
@@ -953,8 +996,11 @@ if (real_running_ == true)
                              z_move_phase_shift_ + 2 * M_PI / z_move_period_time_ * l_ssp_start_time_,
                              -pelvis_offset_ / 2, -pelvis_offset_ / 2);
     }
+
+    // Kiểm tra nếu thời điểm hiện tại (time_) nằm trong khoảng (l_ssp_end_time_, r_ssp_start_time_]
     else if (time_ <= r_ssp_start_time_)
     {
+      // Tính toán vị trí di chuyển của chân trái (left_leg_move) dựa trên các tham số và thời điểm hiện tại
       left_leg_move.x = wSin(l_ssp_end_time_, x_move_period_time_,
                              x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * l_ssp_start_time_, x_move_amplitude_,
                              x_move_amplitude_shift_);
@@ -967,6 +1013,8 @@ if (real_running_ == true)
       left_leg_move.yaw = wSin(l_ssp_end_time_, a_move_period_time_,
                                a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * l_ssp_start_time_,
                                a_move_amplitude_, a_move_amplitude_shift_);
+
+      // Tính toán vị trí di chuyển của chân phải (right_leg_move) dựa trên các tham số và thời điểm hiện tại
       right_leg_move.x = wSin(l_ssp_end_time_, x_move_period_time_,
                               x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * l_ssp_start_time_,
                               -x_move_amplitude_, -x_move_amplitude_shift_);
@@ -979,11 +1027,16 @@ if (real_running_ == true)
       right_leg_move.yaw = wSin(l_ssp_end_time_, a_move_period_time_,
                                 a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * l_ssp_start_time_,
                                 -a_move_amplitude_, -a_move_amplitude_shift_);
+
+      // Đặt offset của hông trái và hông phải thành 0
       pelvis_offset_l = 0;
       pelvis_offset_r = 0;
     }
+
+    // Kiểm tra nếu thời điểm hiện tại (time_) nằm trong khoảng (r_ssp_start_time_, r_ssp_end_time_]
     else if (time_ <= r_ssp_end_time_)
     {
+      // Tính toán vị trí di chuyển của chân trái (left_leg_move) dựa trên các tham số và thời điểm hiện tại
       left_leg_move.x = wSin(time_, x_move_period_time_,
                              x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * r_ssp_start_time_ + M_PI,
                              x_move_amplitude_, x_move_amplitude_shift_);
@@ -996,6 +1049,8 @@ if (real_running_ == true)
       left_leg_move.yaw = wSin(time_, a_move_period_time_,
                                a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * r_ssp_start_time_ + M_PI,
                                a_move_amplitude_, a_move_amplitude_shift_);
+
+      // Tính toán vị trí di chuyển của chân phải (right_leg_move) dựa trên các tham số và thời điểm hiện tại
       right_leg_move.x = wSin(time_, x_move_period_time_,
                               x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * r_ssp_start_time_ + M_PI,
                               -x_move_amplitude_, -x_move_amplitude_shift_);
@@ -1008,6 +1063,8 @@ if (real_running_ == true)
       right_leg_move.yaw = wSin(time_, a_move_period_time_,
                                 a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * r_ssp_start_time_ + M_PI,
                                 -a_move_amplitude_, -a_move_amplitude_shift_);
+
+      // Tính toán offset của hông trái và hông phải dựa trên thời điểm hiện tại và các tham số khác
       pelvis_offset_l = wSin(time_, z_move_period_time_,
                              z_move_phase_shift_ + 2 * M_PI / z_move_period_time_ * r_ssp_start_time_, pelvis_offset_ / 2,
                              pelvis_offset_ / 2);
@@ -1015,8 +1072,11 @@ if (real_running_ == true)
                              z_move_phase_shift_ + 2 * M_PI / z_move_period_time_ * r_ssp_start_time_, -pelvis_swing_ / 2,
                              -pelvis_swing_ / 2);
     }
+
+    // Kiểm tra nếu thời điểm hiện tại (time_) không nằm trong bất kỳ khoảng Single Support Phase nào
     else
     {
+      // Tính toán vị trí di chuyển của chân trái (left_leg_move) dựa trên các tham số và thời điểm kết thúc Single Support Phase của chân phải
       left_leg_move.x = wSin(r_ssp_end_time_, x_move_period_time_,
                              x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * r_ssp_start_time_ + M_PI,
                              x_move_amplitude_, x_move_amplitude_shift_);
@@ -1029,6 +1089,8 @@ if (real_running_ == true)
       left_leg_move.yaw = wSin(r_ssp_end_time_, a_move_period_time_,
                                a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * r_ssp_start_time_ + M_PI,
                                a_move_amplitude_, a_move_amplitude_shift_);
+
+      // Tính toán vị trí di chuyển của chân phải (right_leg_move) dựa trên các tham số và thời điểm kết thúc Single Support Phase của chân phải
       right_leg_move.x = wSin(r_ssp_end_time_, x_move_period_time_,
                               x_move_phase_shift_ + 2 * M_PI / x_move_period_time_ * r_ssp_start_time_ + M_PI,
                               -x_move_amplitude_, -x_move_amplitude_shift_);
@@ -1041,63 +1103,84 @@ if (real_running_ == true)
       right_leg_move.yaw = wSin(r_ssp_end_time_, a_move_period_time_,
                                 a_move_phase_shift_ + 2 * M_PI / a_move_period_time_ * r_ssp_start_time_ + M_PI,
                                 -a_move_amplitude_, -a_move_amplitude_shift_);
+
+      // Đặt offset của hông trái và hông phải thành 0
       pelvis_offset_l = 0;
       pelvis_offset_r = 0;
     }
 
+    // Đặt giá trị roll và pitch của chân trái và chân phải về 0
     left_leg_move.roll = 0;
     left_leg_move.pitch = 0;
     right_leg_move.roll = 0;
     right_leg_move.pitch = 0;
 
+    // Tính toán chiều dài của chân (leg_length) bằng cách cộng tổng chiều dài của đùi, chân dưới và mắt cá chân
     double leg_length = op3_kd_->thigh_length_m_ + op3_kd_->calf_length_m_ + op3_kd_->ankle_length_m_;
 
     // mm, rad
-    ep[0] = swap.x + right_leg_move.x + x_offset_;
-    ep[1] = swap.y + right_leg_move.y - y_offset_ / 2;
-    ep[2] = swap.z + right_leg_move.z + z_offset_ - leg_length;
-    ep[3] = swap.roll + right_leg_move.roll - r_offset_ / 2;
-    ep[4] = swap.pitch + right_leg_move.pitch + p_offset_;
-    ep[5] = swap.yaw + right_leg_move.yaw - a_offset_ / 2;
-    ep[6] = swap.x + left_leg_move.x + x_offset_;
-    ep[7] = swap.y + left_leg_move.y + y_offset_ / 2;
-    ep[8] = swap.z + left_leg_move.z + z_offset_ - leg_length;
-    ep[9] = swap.roll + left_leg_move.roll + r_offset_ / 2;
-    ep[10] = swap.pitch + left_leg_move.pitch + p_offset_;
-    ep[11] = swap.yaw + left_leg_move.yaw + a_offset_ / 2;
+    // Tính toán các điểm cuối (endpoints) của chân phải (right_leg_move) và chân trái (left_leg_move) và lưu vào mảng ep
+
+    // Chân phải (Right Leg):
+    ep[0] = swap.x + right_leg_move.x + x_offset_;              // Tọa độ x
+    ep[1] = swap.y + right_leg_move.y - y_offset_ / 2;          // Tọa độ y (với sự hiệu chỉnh y_offset_)
+    ep[2] = swap.z + right_leg_move.z + z_offset_ - leg_length; // Tọa độ z (với sự hiệu chỉnh z_offset_ và độ dài chân)
+    ep[3] = swap.roll + right_leg_move.roll - r_offset_ / 2;    // Góc roll
+    ep[4] = swap.pitch + right_leg_move.pitch + p_offset_;      // Góc pitch
+    ep[5] = swap.yaw + right_leg_move.yaw - a_offset_ / 2;      // Góc yaw
+
+    // Chân trái (Left Leg):
+    ep[6] = swap.x + left_leg_move.x + x_offset_;              // Tọa độ x
+    ep[7] = swap.y + left_leg_move.y + y_offset_ / 2;          // Tọa độ y (với sự hiệu chỉnh y_offset_)
+    ep[8] = swap.z + left_leg_move.z + z_offset_ - leg_length; // Tọa độ z (với sự hiệu chỉnh z_offset_ và độ dài chân)
+    ep[9] = swap.roll + left_leg_move.roll + r_offset_ / 2;    // Góc roll
+    ep[10] = swap.pitch + left_leg_move.pitch + p_offset_;     // Góc pitch
+    ep[11] = swap.yaw + left_leg_move.yaw + a_offset_ / 2;     // Góc yaw
 
     // Compute body swing
+    // Tính toán độ xoay của cơ thể
+    // Kiểm tra nếu thời điểm hiện tại (time_) nhỏ hơn hoặc bằng thời điểm kết thúc Single Support Phase bên trái (l_ssp_end_time_)
     if (time_ <= l_ssp_end_time_)
     {
+      // Nếu đúng, sử dụng thông số của chân trái để tính toán body_swing_y và body_swing_z
       body_swing_y = -ep[7];
       body_swing_z = ep[8];
     }
     else
     {
+      // Nếu không, sử dụng thông số của chân phải để tính toán body_swing_y và body_swing_z
       body_swing_y = -ep[1];
       body_swing_z = ep[2];
     }
+
+    // Giảm giá trị body_swing_z đi độ dài của chân (leg_length)
     body_swing_z -= leg_length;
 
     // right leg
+    // Tính toán ngược để xác định góc khớp cho chân phải
     if (op3_kd_->calcInverseKinematicsForRightLeg(&leg_angle[0], ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]) == false)
     {
+      // In ra thông báo và trả về false nếu không thể giải quyết được ngược
       printf("IK not Solved EPR : %f %f %f %f %f %f\n", ep[0], ep[1], ep[2], ep[3], ep[4], ep[5]);
       return false;
     }
 
+    // Tính toán ngược để xác định góc khớp cho chân trái
     if (op3_kd_->calcInverseKinematicsForLeftLeg(&leg_angle[6], ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]) == false)
     {
+      // In ra thông báo và trả về false nếu không thể giải quyết được ngược
       printf("IK not Solved EPL : %f %f %f %f %f %f\n", ep[6], ep[7], ep[8], ep[9], ep[10], ep[11]);
       return false;
     }
 
-    // Compute dxls angle
+    // Tính toán góc của các động cơ servo (dxls angle) dựa trên góc khớp đã tính toán trước đó
+
     for (int i = 0; i < 12; i++)
     {
       // offset : rad
       double offset = 0;
 
+      // Xác định offset dựa trên góc khớp và các thông số đặc biệt của từng động cơ servo
       if (i == joint_table_["r_hip_roll"]) // R_HIP_ROLL
         offset += op3_kd_->getJointDirection("r_hip_roll") * pelvis_offset_r;
       else if (i == joint_table_["l_hip_roll"]) // L_HIP_ROLL
@@ -1107,22 +1190,27 @@ if (real_running_ == true)
       else if (i == joint_table_["l_hip_pitch"]) // R_HIP_PITCH or L_HIP_PITCH
         offset -= op3_kd_->getJointDirection("l_hip_pitch") * hit_pitch_offset_;
 
+      // Thêm offset vào góc khớp đã tính toán trước đó
       leg_angle[i] += offset;
     }
 
+    // Trả về true để chỉ ra rằng việc tính toán góc của các động cơ servo đã hoàn thành thành công
     return true;
   }
 
+  // Hàm tính toán góc của các khớp cánh tay
   void WalkingModule::computeArmAngle(double *arm_angle)
   {
-    // Compute arm swing
+    // Tính toán chuyển động cánh tay (arm swing)
     if (x_move_amplitude_ == 0)
     {
+      // Nếu biên độ chuyển động là 0, đặt góc cánh tay bằng 0 cho cả cánh tay phải và trái
       arm_angle[0] = 0; // Right
       arm_angle[1] = 0; // Left
     }
     else
     {
+      // Nếu có chuyển động cánh tay, tính toán góc cánh tay cho cả cánh tay phải và trái
       arm_angle[0] = wSin(time_, period_time_, M_PI * 1.5, -x_move_amplitude_ * arm_swing_gain_ * 1000,
                           0) *
                      op3_kd_->getJointDirection("r_sho_pitch") * DEGREE2RADIAN;
@@ -1132,33 +1220,40 @@ if (real_running_ == true)
     }
   }
 
+  // Hàm điều chỉnh góc cân bằng của các khớp chân dựa trên lỗi góc gyro
   void WalkingModule::sensoryFeedback(const double &rlGyroErr, const double &fbGyroErr, double *balance_angle)
   {
-    // adjust balance offset
+    // Kiểm tra xem chế độ cân bằng có được kích hoạt hay không
     if (walking_param_.balance_enable == false)
       return;
 
+    // Hệ số cân bằng nội tại
     double internal_gain = 0.05;
 
+    // Điều chỉnh góc cân bằng cho các khớp chân phải và chân trái dựa trên lỗi góc gyro
     balance_angle[joint_table_["r_hip_roll"]] = op3_kd_->getJointDirection("r_hip_roll") * internal_gain * rlGyroErr * walking_param_.balance_hip_roll_gain; // R_HIP_ROLL
     balance_angle[joint_table_["l_hip_roll"]] = op3_kd_->getJointDirection("l_hip_roll") * internal_gain * rlGyroErr * walking_param_.balance_hip_roll_gain; // L_HIP_ROLL
 
+    // Điều chỉnh góc cân bằng cho khớp đầu gối dựa trên lỗi góc gyro
     balance_angle[joint_table_["r_knee"]] = -op3_kd_->getJointDirection("r_knee") * internal_gain * fbGyroErr * walking_param_.balance_knee_gain; // R_KNEE
     balance_angle[joint_table_["l_knee"]] = -op3_kd_->getJointDirection("l_knee") * internal_gain * fbGyroErr * walking_param_.balance_knee_gain; // L_KNEE
 
+    // Điều chỉnh góc cân bằng cho khớp mắt cá chân dựa trên lỗi góc gyro
     balance_angle[joint_table_["r_ank_pitch"]] = -op3_kd_->getJointDirection("r_ank_pitch") * internal_gain * fbGyroErr * walking_param_.balance_ankle_pitch_gain; // R_ANKLE_PITCH
     balance_angle[joint_table_["l_ank_pitch"]] = -op3_kd_->getJointDirection("l_ank_pitch") * internal_gain * fbGyroErr * walking_param_.balance_ankle_pitch_gain; // L_ANKLE_PITCH
 
+    // Điều chỉnh góc cân bằng cho khớp mắt cá chân dựa trên lỗi góc gyro
     balance_angle[joint_table_["r_ank_roll"]] = -op3_kd_->getJointDirection("r_ank_roll") * internal_gain * rlGyroErr * walking_param_.balance_ankle_roll_gain; // R_ANKLE_ROLL
     balance_angle[joint_table_["l_ank_roll"]] = -op3_kd_->getJointDirection("l_ank_roll") * internal_gain * rlGyroErr * walking_param_.balance_ankle_roll_gain; // L_ANKLE_ROLL
   }
 
+  // Hàm nạp các tham số chạy bộ từ tệp YAML
   void WalkingModule::loadWalkingParam(const std::string &path)
   {
     YAML::Node doc;
     try
     {
-      // load yaml
+      // Nạp tệp YAML
       doc = YAML::LoadFile(path.c_str());
     }
     catch (const std::exception &e)
@@ -1167,7 +1262,7 @@ if (real_running_ == true)
       return;
     }
 
-    // parse movement time
+    // Phân tích thời gian di chuyển ban đầu
     walking_param_.init_x_offset = doc["x_offset"].as<double>();
     walking_param_.init_y_offset = doc["y_offset"].as<double>();
     walking_param_.init_z_offset = doc["z_offset"].as<double>();
@@ -1175,19 +1270,16 @@ if (real_running_ == true)
     walking_param_.init_pitch_offset = doc["pitch_offset"].as<double>() * DEGREE2RADIAN;
     walking_param_.init_yaw_offset = doc["yaw_offset"].as<double>() * DEGREE2RADIAN;
     walking_param_.hip_pitch_offset = doc["hip_pitch_offset"].as<double>() * DEGREE2RADIAN;
-    // time
+
+    // Thời gian
     walking_param_.period_time = doc["period_time"].as<double>() * 0.001; // ms -> s
     walking_param_.dsp_ratio = doc["dsp_ratio"].as<double>();
     walking_param_.step_fb_ratio = doc["step_forward_back_ratio"].as<double>();
-    // walking
-    // walking_param_.x_move_amplitude
-    // walking_param_.y_move_amplitude
-    walking_param_.z_move_amplitude = doc["foot_height"].as<double>();
-    // walking_param_.angle_move_amplitude
-    // walking_param_.move_aim_on
 
-    // balance
-    // walking_param_.balance_enable
+    // Di chuyển
+    walking_param_.z_move_amplitude = doc["foot_height"].as<double>();
+
+    // Cân bằng
     walking_param_.balance_hip_roll_gain = doc["balance_hip_roll_gain"].as<double>();
     walking_param_.balance_knee_gain = doc["balance_knee_gain"].as<double>();
     walking_param_.balance_ankle_roll_gain = doc["balance_ankle_roll_gain"].as<double>();
@@ -1197,17 +1289,20 @@ if (real_running_ == true)
     walking_param_.pelvis_offset = doc["pelvis_offset"].as<double>() * DEGREE2RADIAN;
     walking_param_.arm_swing_gain = doc["arm_swing_gain"].as<double>();
 
-    // gain
+    // Hệ số kiểm soát PID
     walking_param_.p_gain = doc["p_gain"].as<int>();
     walking_param_.i_gain = doc["i_gain"].as<int>();
     walking_param_.d_gain = doc["d_gain"].as<int>();
   }
 
+  // Hàm lưu các tham số chạy bộ vào một tệp YAML
   void WalkingModule::saveWalkingParam(std::string &path)
   {
     YAML::Emitter out_emitter;
 
     out_emitter << YAML::BeginMap;
+
+    // Lưu các tham số chạy bộ vào tệp YAML
     out_emitter << YAML::Key << "x_offset" << YAML::Value << walking_param_.init_x_offset;
     out_emitter << YAML::Key << "y_offset" << YAML::Value << walking_param_.init_y_offset;
     out_emitter << YAML::Key << "z_offset" << YAML::Value << walking_param_.init_z_offset;
@@ -1227,50 +1322,68 @@ if (real_running_ == true)
     out_emitter << YAML::Key << "balance_knee_gain" << YAML::Value << walking_param_.balance_knee_gain;
     out_emitter << YAML::Key << "balance_ankle_roll_gain" << YAML::Value << walking_param_.balance_ankle_roll_gain;
     out_emitter << YAML::Key << "balance_ankle_pitch_gain" << YAML::Value << walking_param_.balance_ankle_pitch_gain;
-
     out_emitter << YAML::Key << "p_gain" << YAML::Value << walking_param_.p_gain;
     out_emitter << YAML::Key << "i_gain" << YAML::Value << walking_param_.i_gain;
     out_emitter << YAML::Key << "d_gain" << YAML::Value << walking_param_.d_gain;
+
     out_emitter << YAML::EndMap;
 
-    // output to file
+    // Ghi vào tệp
     std::ofstream fout(path.c_str());
     fout << out_emitter.c_str();
   }
 
+  // Hàm bật chế độ chạy bộ khi được gọi từ hệ thống
   void WalkingModule::onModuleEnable()
   {
+    // Thiết lập trạng thái chạy bộ thành WalkingEnable
     walking_state_ = WalkingEnable;
+
+    // Xuất thông báo trạng thái "Walking Enable" qua ROS
     ROS_INFO("Walking Enable");
   }
 
+  // Hàm tắt chế độ chạy bộ khi được gọi từ hệ thống
   void WalkingModule::onModuleDisable()
   {
+    // Xuất thông báo trạng thái "Walking Disable" qua ROS
     ROS_INFO("Walking Disable");
+
+    // Thiết lập trạng thái chạy bộ thành WalkingDisable
     walking_state_ = WalkingDisable;
   }
 
+  // Hàm khởi tạo quỹ đạo chuyển động của các khớp để đưa robot từ vị trí hiện tại đến vị trí mục tiêu trong thời gian nhất định
   void WalkingModule::iniPoseTraGene(double mov_time)
   {
+    // Lấy thời gian mẫu từ chu kỳ kiểm soát và tính tổng số bước thời gian
     double smp_time = control_cycle_msec_ * 0.001;
     int all_time_steps = int(mov_time / smp_time) + 1;
+
+    // Thay đổi kích thước ma trận quỹ đạo chuyển động
     calc_joint_tra_.resize(all_time_steps, result_.size() + 1);
 
+    // Duyệt qua từng khớp để tạo ra quỹ đạo chuyển động
     for (int id = 0; id <= result_.size(); id++)
     {
+      // Lấy giá trị khởi đầu và giá trị mục tiêu cho khớp hiện tại
       double ini_value = goal_position_.coeff(0, id);
       double tar_value = target_position_.coeff(0, id);
 
+      // Tạo ma trận quỹ đạo chuyển động bằng cách sử dụng hàm tính Minimum Jerk Trajectory
       Eigen::MatrixXd tra;
-
       tra = robotis_framework::calcMinimumJerkTra(ini_value, 0.0, 0.0, tar_value, 0.0, 0.0, smp_time, mov_time);
 
+      // Gán giá trị quỹ đạo chuyển động vào ma trận lưu trữ
       calc_joint_tra_.block(0, id, all_time_steps, 1) = tra;
     }
 
+    // In ra thông điệp nếu đang trong chế độ DEBUG
     if (DEBUG)
       std::cout << "Generate Trajecotry : " << mov_time << "s [" << all_time_steps << "]" << std::endl;
 
+    // Đặt lại biến đếm vị trí khởi tạo
     init_pose_count_ = 0;
   }
+
 }

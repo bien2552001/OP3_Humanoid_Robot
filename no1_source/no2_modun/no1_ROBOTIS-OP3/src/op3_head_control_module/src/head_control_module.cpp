@@ -651,9 +651,16 @@ namespace robotis_op
       Eigen::MatrixXd tra = calcMinimumJerkTraPVA(ini_value, ini_vel, ini_accel, tar_value, 0.0, 0.0, smp_time, moving_time_);
 
       // Lưu trữ kết quả vào các ma trận tương ứng
+
+      // Gán giá trị từ ma trận tra cho cột thứ 'index' của ma trận calc_joint_tra_
       calc_joint_tra_.block(0, index, all_time_steps, 1) = tra.block(0, 0, all_time_steps, 1);
+
+      // Gán giá trị từ ma trận tra cho cột thứ 'index' của ma trận calc_joint_vel_tra_
       calc_joint_vel_tra_.block(0, index, all_time_steps, 1) = tra.block(0, 1, all_time_steps, 1);
+
+      // Gán giá trị từ ma trận tra cho cột thứ 'index' của ma trận calc_joint_accel_tra_
       calc_joint_accel_tra_.block(0, index, all_time_steps, 1) = tra.block(0, 2, all_time_steps, 1);
+
     }
 
     // Cập nhật kích thước và bước đếm cho đường đi
@@ -684,10 +691,20 @@ namespace robotis_op
     }
 
     // Tạo đối tượng StatusMsg và điền thông tin
+
+    // Khai báo đối tượng StatusMsg
     robotis_controller_msgs::StatusMsg status_msg;
+
+    // Gán thời điểm hiện tại cho dấu thời gian của thông điệp (status_msg.header.stamp)
     status_msg.header.stamp = now;
+
+    // Gán loại thông điệp cho đối tượng StatusMsg (status_msg.type)
     status_msg.type = type;
+
+    // Gán tên module cho đối tượng StatusMsg (status_msg.module_name)
     status_msg.module_name = "Head Control";
+
+    // Gán thông điệp trạng thái cho đối tượng StatusMsg (status_msg.status_msg)
     status_msg.status_msg = msg;
 
     // Xuất thông báo

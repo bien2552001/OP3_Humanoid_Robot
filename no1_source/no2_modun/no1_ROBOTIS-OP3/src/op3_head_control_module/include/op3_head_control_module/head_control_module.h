@@ -104,31 +104,80 @@ class HeadControlModule : public robotis_framework::MotionModule, public robotis
   Eigen::MatrixXd calcMinimumJerkTraPVA(double pos_start, double vel_start, double accel_start, double pos_end,
                                         double vel_end, double accel_end, double smp_time, double mov_time);
 
-  // Các biến thành viên
-  int control_cycle_msec_;
-  boost::thread queue_thread_;
-  boost::thread *tra_gene_thread_;
-  boost::mutex tra_lock_;
-  ros::Publisher status_msg_pub_;
-  const bool DEBUG;
-  bool stop_process_;
-  bool is_moving_;
-  bool is_direct_control_;
-  int tra_count_, tra_size_;
-  double moving_time_;
-  int scan_state_;
-  bool has_goal_position_;
-  double angle_unit_;
 
-  // Các ma trận vị trí, vận tốc, gia tốc, quỹ đạo của khớp đầu
-  Eigen::MatrixXd target_position_;
-  Eigen::MatrixXd current_position_;
-  Eigen::MatrixXd goal_position_;
-  Eigen::MatrixXd goal_velocity_;
-  Eigen::MatrixXd goal_acceleration_;
-  Eigen::MatrixXd calc_joint_tra_;
-  Eigen::MatrixXd calc_joint_vel_tra_;
-  Eigen::MatrixXd calc_joint_accel_tra_;
+
+// Các biến thành viên
+
+// Chu kỳ kiểm soát (control_cycle_msec_)
+int control_cycle_msec_;
+
+// Luồng xử lý hàng đợi (queue_thread_)
+boost::thread queue_thread_;
+
+// Luồng xử lý tạo gen (tra_gene_thread_)
+boost::thread *tra_gene_thread_;
+
+// Khóa mutex cho quá trình tạo gen (tra_lock_)
+boost::mutex tra_lock_;
+
+// Đối tượng Publisher để xuất bản thông điệp trạng thái (status_msg_pub_)
+ros::Publisher status_msg_pub_;
+
+// Chế độ gỡ lỗi (DEBUG)
+const bool DEBUG;
+
+// Cờ dừng quá trình (stop_process_)
+bool stop_process_;
+
+// Trạng thái di chuyển (is_moving_)
+bool is_moving_;
+
+// Chế độ kiểm soát trực tiếp (is_direct_control_)
+bool is_direct_control_;
+
+// Số lượng và kích thước của quỹ đạo (tra_count_, tra_size_)
+int tra_count_, tra_size_;
+
+// Thời gian di chuyển (moving_time_)
+double moving_time_;
+
+// Trạng thái của quét (scan_state_)
+int scan_state_;
+
+// Kiểm tra xem có vị trí mục tiêu hay không (has_goal_position_)
+bool has_goal_position_;
+
+// Đơn vị góc (angle_unit_)
+double angle_unit_;
+
+
+
+// Các ma trận vị trí, vận tốc, gia tốc, quỹ đạo của khớp đầu
+
+// Ma trận vị trí mục tiêu (target_position_)
+Eigen::MatrixXd target_position_;
+
+// Ma trận vị trí hiện tại (current_position_)
+Eigen::MatrixXd current_position_;
+
+// Ma trận vị trí mục tiêu (goal_position_)
+Eigen::MatrixXd goal_position_;
+
+// Ma trận vận tốc mục tiêu (goal_velocity_)
+Eigen::MatrixXd goal_velocity_;
+
+// Ma trận gia tốc mục tiêu (goal_acceleration_)
+Eigen::MatrixXd goal_acceleration_;
+
+// Ma trận quỹ đạo của khớp đầu (calc_joint_tra_)
+Eigen::MatrixXd calc_joint_tra_;
+
+// Ma trận vận tốc quỹ đạo của khớp đầu (calc_joint_vel_tra_)
+Eigen::MatrixXd calc_joint_vel_tra_;
+
+// Ma trận gia tốc quỹ đạo của khớp đầu (calc_joint_accel_tra_)
+Eigen::MatrixXd calc_joint_accel_tra_;
+
 
   // Danh sách tên khớp được sử dụng
   std::map<std::string, int> using_joint_name_;

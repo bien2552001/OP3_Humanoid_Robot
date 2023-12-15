@@ -1,15 +1,16 @@
 # 1.0 -> 1 [deg]
+# Hệ số gain chia cho các khớp của chân (Right Leg)
+r_hip_yaw_gain   : 0.0  # Hệ số gain cho khớp R_HIP_YAW
+r_hip_roll_gain  : 0.0  # Hệ số gain cho khớp R_HIP_ROLL
+r_hip_pitch_gain : 0.0  # Hệ số gain cho khớp R_HIP_PITCH
+r_knee_gain      : 0.0  # Hệ số gain cho khớp R_KNEE
+r_ank_pitch_gain : 0.0  # Hệ số gain cho khớp R_ANKLE_PITCH
+r_ank_roll_gain  : 0.0  # Hệ số gain cho khớp R_ANKLE_ROLL
 
-r_hip_yaw_gain   : 0.0
-r_hip_roll_gain  : 0.0
-r_hip_pitch_gain : 0.0
-r_knee_gain      : 0.0
-r_ank_pitch_gain : 0.0
-r_ank_roll_gain  : 0.0
-
-l_hip_yaw_gain   : 0.0
-l_hip_roll_gain  : 0.0
-l_hip_pitch_gain : 0.0
-l_knee_gain      : 0.0
-l_ank_pitch_gain : 0.0
-l_ank_roll_gain  : 0.0
+# Hệ số gain chia cho các khớp của chân (Left Leg)
+l_hip_yaw_gain   : 0.0  # Hệ số gain cho khớp L_HIP_YAW
+l_hip_roll_gain  : 0.0  # Hệ số gain cho khớp L_HIP_ROLL
+l_hip_pitch_gain : 0.0  # Hệ số gain cho khớp L_HIP_PITCH
+l_knee_gain      : 0.0  # Hệ số gain cho khớp L_KNEE
+l_ank_pitch_gain : 0.0  # Hệ số gain cho khớp L_ANKLE_PITCH
+l_ank_roll_gain  : 0.0  # Hệ số gain cho khớp L_ANKLE_ROLL

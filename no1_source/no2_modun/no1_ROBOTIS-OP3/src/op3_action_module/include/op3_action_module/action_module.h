@@ -89,15 +89,32 @@ class ActionModule : public robotis_framework::MotionModule, public robotis_fram
   // Xử lý chính của quá trình phát hành động
   void actionPlayProcess(std::map<std::string, robotis_framework::Dynamixel *> dxls);
 
- private:
+
+private:
   // Các hằng số cho các phần của hành động
+
+  // Phần trước khi thực hiện hành động (PRE_SECTION)
   const int PRE_SECTION;
+
+  // Phần chính của hành động (MAIN_SECTION)
   const int MAIN_SECTION;
+
+  // Phần sau khi thực hiện hành động (POST_SECTION)
   const int POST_SECTION;
+
+  // Phần tạm dừng hành động (PAUSE_SECTION)
   const int PAUSE_SECTION;
+
+  // Hành động kết thúc với giá trị 0 (ZERO_FINISH)
   const int ZERO_FINISH;
+
+  // Hành động kết thúc với giá trị khác 0 (NONE_ZERO_FINISH)
   const int NONE_ZERO_FINISH;
+
+  // Chế độ in ra thông tin gỡ lỗi (DEBUG_PRINT)
   const bool DEBUG_PRINT;
+
+
 
   // Phương thức chạy trong luồng
   void queueThread();

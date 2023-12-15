@@ -27,16 +27,22 @@
 #include <math.h>
 #include <map>
 
+// Định nghĩa lớp JointControl
 class JointControl
 {
 public:
+  // Constructor (hàm khởi tạo)
   JointControl();
+
+  // Destructor (hàm hủy)
   virtual ~JointControl();
 
+  // Phương thức khởi tạo (initialize) - có thể được gọi để cài đặt các giá trị ban đầu
   void initialize();
 
 protected:
-
+  // Các thành phần bảo vệ (protected) sẽ được truy cập bởi lớp con của JointControl
 };
+
 
 #endif
