@@ -1,8 +1,8 @@
-# Install script for directory: /home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description
+# Install script for directory: /home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/install")
+  set(CMAKE_INSTALL_PREFIX "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,27 +38,27 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/build/op3_description/catkin_generated/installspace/op3_description.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/build/op3_description/catkin_generated/installspace/op3_description.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/op3_description/cmake" TYPE FILE FILES
-    "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/build/op3_description/catkin_generated/installspace/op3_descriptionConfig.cmake"
-    "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/build/op3_description/catkin_generated/installspace/op3_descriptionConfig-version.cmake"
+    "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/build/op3_description/catkin_generated/installspace/op3_descriptionConfig.cmake"
+    "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/build/op3_description/catkin_generated/installspace/op3_descriptionConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/op3_description" TYPE FILE FILES "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/op3_description" TYPE FILE FILES "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/op3_description" TYPE DIRECTORY FILES
-    "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/doc"
-    "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/launch"
-    "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/meshes"
-    "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/rviz"
-    "/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/urdf"
+    "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/doc"
+    "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/launch"
+    "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/meshes"
+    "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/rviz"
+    "/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/src/op3_description/urdf"
     )
 endif()
 

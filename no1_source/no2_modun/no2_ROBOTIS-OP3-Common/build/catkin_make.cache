@@ -1,0 +1,2 @@
+op3_description:op3_gazebo:robotis_op3_common
+-DCATKIN_DEVEL_PREFIX=/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/no2_modun/no2_ROBOTIS-OP3-Common/devel -DCMAKE_INSTALL_PREFIX=/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/no2_modun/no2_ROBOTIS-OP3-Common/install -G Unix Makefiles

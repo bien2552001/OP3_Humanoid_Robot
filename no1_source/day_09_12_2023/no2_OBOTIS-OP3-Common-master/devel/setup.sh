@@ -11,7 +11,7 @@
 
 # since this file is sourced either use the provided _CATKIN_SETUP_DIR
 # or fall back to the destination set at configure time
-: ${_CATKIN_SETUP_DIR:=/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/devel}
+: ${_CATKIN_SETUP_DIR:=/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/devel}
 _SETUP_UTIL="$_CATKIN_SETUP_DIR/_setup_util.py"
 unset _CATKIN_SETUP_DIR
 

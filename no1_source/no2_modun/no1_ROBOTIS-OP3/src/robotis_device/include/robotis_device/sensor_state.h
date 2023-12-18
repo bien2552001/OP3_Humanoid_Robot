@@ -1,18 +1,18 @@
 /*******************************************************************************
-* Copyright 2018 ROBOTIS CO., LTD.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*******************************************************************************/
+ * Copyright 2018 ROBOTIS CO., LTD.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 
 /*
  * sensor_state.h
@@ -24,27 +24,26 @@
 #ifndef ROBOTIS_DEVICE_SENSOR_STATE_H_
 #define ROBOTIS_DEVICE_SENSOR_STATE_H_
 
-
 #include "time_stamp.h"
 
 namespace robotis_framework
 {
 
-class SensorState
-{
-public:
-  TimeStamp update_time_stamp_;
-
-  std::map<std::string, uint32_t> bulk_read_table_;
-
-  SensorState()
-    : update_time_stamp_(0, 0)
+  class SensorState
   {
-    bulk_read_table_.clear();
-  }
-};
+  public:
+    TimeStamp update_time_stamp_; // Thời điểm cập nhật trạng thái của cảm biến
+
+    std::map<std::string, uint32_t> bulk_read_table_; // Bảng đọc nhiều giá trị từ cảm biến, với tên là chuỗi và giá trị là số nguyên không dấu 32-bit
+
+    // Constructor mặc định
+    SensorState()
+        : update_time_stamp_(0, 0) // Khởi tạo thời điểm cập nhật là 0 (epoch time)
+    {
+      bulk_read_table_.clear(); // Xóa dữ liệu trong bảng đọc nhiều giá trị
+    }
+  };
 
 }
-
 
 #endif /* ROBOTIS_DEVICE_SENSOR_STATE_H_ */

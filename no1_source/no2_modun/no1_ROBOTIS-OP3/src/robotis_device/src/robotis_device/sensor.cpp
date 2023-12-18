@@ -25,14 +25,17 @@
 
 using namespace robotis_framework;
 
+// Hàm tạo của lớp Sensor
 Sensor::Sensor(int id, std::string model_name, float protocol_version)
 {
+    // Khởi tạo các thuộc tính của đối tượng Sensor.
     this->id_ = id;
     this->model_name_ = model_name;
     this->port_name_ = "";
     this->protocol_version_ = protocol_version;
     ctrl_table_.clear();
 
+    // Khởi tạo trạng thái của cảm biến.
     sensor_state_ = new SensorState();
 
     bulk_read_items_.clear();

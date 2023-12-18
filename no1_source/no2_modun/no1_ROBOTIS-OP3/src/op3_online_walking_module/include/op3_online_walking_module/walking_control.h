@@ -122,6 +122,13 @@ double calcRefZMPx(int step);
 // Tính toán điểm ZMP tham chiếu theo trục y cho bước chân cụ thể
 double calcRefZMPy(int step);
 
+
+
+
+
+
+
+
 // Lấy vị trí đi bộ, bao gồm vị trí của chân trái, chân phải và cơ bắp
 void getWalkingPosition(std::vector<double_t> &l_foot_pos,
                         std::vector<double_t> &r_foot_pos,
@@ -133,9 +140,9 @@ void getWalkingVelocity(std::vector<double_t> &l_foot_vel,
                         std::vector<double_t> &body_vel);
 
 // Lấy gia tốc đi bộ, bao gồm gia tốc của chân trái, chân phải và cơ bắp
-void getWalkingAcceleration(std::vector<double_t> &l_foot_accel,
-                            std::vector<double_t> &r_foot_accel,
-                            std::vector<double_t> &body_accel);
+void getWalkingAccleration(std::vector<double_t> &l_foot_accel,
+                             std::vector<double_t> &r_foot_accel,
+                             std::vector<double_t> &body_accel);
 
 // Lấy hướng của chân trái, chân phải và cơ bắp khi đi bộ
 void getWalkingOrientation(std::vector<double_t> &l_foot_Q,
@@ -147,6 +154,10 @@ void getLIPM(std::vector<double_t> &x_lipm, std::vector<double_t> &y_lipm);
 
 // Lấy trạng thái của quá trình đi bộ, bao gồm chân đi và giai đoạn đi bộ
 void getWalkingState(int &walking_leg, int &walking_phase);
+
+
+
+
 
 
 protected:
@@ -176,6 +187,12 @@ protected:
 
   // Giai đoạn của quá trình đi bộ (DSP hoặc SSP)
   int walking_phase_;
+
+
+
+
+
+
 
 
   // Foot Trajectory
@@ -261,6 +278,11 @@ Eigen::MatrixXd goal_r_foot_pos_buffer_, goal_l_foot_pos_buffer_;
 Eigen::MatrixXd ref_zmp_buffer_;
 
 
+
+
+
+
+
   // Pose Information
 // Góc quay khởi tạo của cơ thể (yaw)
 double init_body_yaw_angle_;
@@ -273,6 +295,9 @@ std::vector<double_t> des_body_pos_, des_body_vel_, des_body_accel_;
 
 // Thông tin về vị trí, vận tốc và gia tốc mục tiêu của cơ thể
 std::vector<double_t> goal_body_pos_, goal_body_vel_, goal_body_accel_;
+
+
+
 
 // Đối tượng Quaternion đại diện cho hướng của cơ thể
 Eigen::Quaterniond init_body_Q_, des_body_Q_, goal_body_Q_;
@@ -288,6 +313,9 @@ std::vector<double_t> goal_l_foot_pos_, goal_l_foot_vel_, goal_l_foot_accel_;
 
 // Đối tượng Quaternion đại diện cho hướng của chân trái
 Eigen::Quaterniond init_l_foot_Q_, des_l_foot_Q_, goal_l_foot_Q_;
+
+
+
 
 // Thông tin về vị trí, vận tốc và gia tốc khởi tạo của chân phải
 std::vector<double_t> init_r_foot_pos_, init_r_foot_vel_, init_r_foot_accel_;

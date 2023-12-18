@@ -81,8 +81,16 @@ protected:
 
 //  KDL::Chain lleg_chain_;
   // Các solver Forward Kinematics cho cả chân phải và chân trái với cảm biến lực/torque
-  KDL::ChainFkSolverPos_recursive *rleg_ft_fk_solver_;    // Solver FK cho chân phải với cảm biến lực/torque
-  KDL::ChainFkSolverPos_recursive *lleg_ft_fk_solver_;    // Solver FK cho chân trái với cảm biến lực/torque
+  KDL::ChainDynParam *lleg_dyn_param_ = NULL;
+  KDL::ChainJntToJacSolver *lleg_jacobian_solver_;
+  KDL::ChainFkSolverPos_recursive *lleg_fk_solver_;
+  KDL::ChainIkSolverVel_pinv *lleg_ik_vel_solver_;
+  KDL::ChainIkSolverPos_NR_JL *lleg_ik_pos_solver_;
+
+  KDL::ChainFkSolverPos_recursive *rleg_ft_fk_solver_;
+  KDL::ChainFkSolverPos_recursive *lleg_ft_fk_solver_;
+
+
 
   Eigen::VectorXd rleg_joint_position_;                   // Vị trí của các khớp của chân phải
   Eigen::VectorXd lleg_joint_position_;                   // Vị trí của các khớp của chân trái

@@ -19,9 +19,9 @@ except ImportError:
             break
     from catkin.environment_cache import generate_environment_script
 
-code = generate_environment_script('/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/devel/env.sh')
+code = generate_environment_script('/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/devel/env.sh')
 
-output_filename = '/home/bien/ros1/clone_git/clone_project/humainoid/no1_ROBOTIS_OP3_BRANCH_MASTER/op3_test/day_09_12_2023/no2_OBOTIS-OP3-Common-master/build/catkin_generated/setup_cached.sh'
+output_filename = '/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/day_09_12_2023/no2_OBOTIS-OP3-Common-master/build/catkin_generated/setup_cached.sh'
 with open(output_filename, 'w') as f:
     # print('Generate script for cached setup "%s"' % output_filename)
     f.write('\n'.join(code))

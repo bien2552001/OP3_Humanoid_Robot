@@ -1,0 +1,8 @@
+prefix=/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/no2_modun/no1_ROBOTIS-OP3/install
+
+Name: robotis_framework_common
+Description: Description of robotis_framework_common
+Version: 0.2.9
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lrobotis_framework_common
+Requires: roscpp robotis_device

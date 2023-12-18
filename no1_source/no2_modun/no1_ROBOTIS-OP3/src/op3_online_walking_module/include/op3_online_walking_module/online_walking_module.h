@@ -104,6 +104,15 @@ public:
   // Thiết lập khoảng cách giữa các chân dựa trên thông điệp số thực (std_msgs::Float64).
   void setFootDistanceCallback(const std_msgs::Float64::ConstPtr& msg);
 
+
+
+  void goalJointPoseCallback(const op3_online_walking_module_msgs::JointPose &msg);
+  void goalKinematicsPoseCallback(const op3_online_walking_module_msgs::KinematicsPose& msg);
+  void footStepCommandCallback(const op3_online_walking_module_msgs::FootStepCommand& msg);
+  
+  
+
+
 // Xử lý các lệnh đi bộ như bước chân thông qua ROS topic.  void footStepCommandCallback(const op3_online_walking_module_msgs::FootStepCommand& msg);
   void walkingParamCallback(const op3_online_walking_module_msgs::WalkingParam& msg);
 // Xử lý dãy bước chân 2D thông qua ROS topic.
@@ -115,6 +124,12 @@ public:
   void leftFootForceTorqueOutputCallback(const geometry_msgs::WrenchStamped::ConstPtr &msg);
   // Xử lý dữ liệu lực và moment chân phải thông qua ROS topic.
   void rightFootForceTorqueOutputCallback(const geometry_msgs::WrenchStamped::ConstPtr &msg);
+
+
+
+
+
+
 
 
 

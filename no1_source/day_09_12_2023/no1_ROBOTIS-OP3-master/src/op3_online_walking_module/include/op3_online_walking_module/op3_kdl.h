@@ -50,26 +50,37 @@ public:
   OP3Kinematics();
   virtual ~OP3Kinematics();
 
-//  void initialize(std::vector<double_t> pelvis_position, std::vector<double_t> pelvis_orientation);
+  // Khởi tạo và giải phóng bộ nhớ
   void initialize(Eigen::MatrixXd pelvis_position, Eigen::MatrixXd pelvis_orientation);
+
+  // Thiết lập vị trí của các khớp trong chân phải và chân trái
   void setJointPosition(Eigen::VectorXd rleg_joint_position, Eigen::VectorXd lleg_joint_position);
+
+  // Giải phóng chuyển động tiến
   void solveForwardKinematics(std::vector<double_t> &rleg_position, std::vector<double_t> &rleg_orientation,
                               std::vector<double_t> &lleg_position, std::vector<double_t> &lleg_orientation);
+
+  // Giải phóng chuyển động ngược
   bool solveInverseKinematics(std::vector<double_t> &rleg_output,
                               Eigen::MatrixXd rleg_target_position, Eigen::Quaterniond rleg_target_orientation,
                               std::vector<double_t> &lleg_output,
                               Eigen::MatrixXd lleg_target_position, Eigen::Quaterniond lleg_target_orientation);
+
+  // Giải phóng bộ nhớ
   void finalize();
 
 protected:
 //  KDL::Chain rleg_chain_;
-  KDL::ChainDynParam *rleg_dyn_param_ = NULL;
-  KDL::ChainJntToJacSolver *rleg_jacobian_solver_;
-  KDL::ChainFkSolverPos_recursive *rleg_fk_solver_;
-  KDL::ChainIkSolverVel_pinv *rleg_ik_vel_solver_;
-  KDL::ChainIkSolverPos_NR_JL *rleg_ik_pos_solver_;
+  // Các thành phần KDL để giải phương trình cinematic và kinematic
+  KDL::ChainDynParam *rleg_dyn_param_ = nullptr;          // Bộ động học
+  KDL::ChainJntToJacSolver *rleg_jacobian_solver_;        // Solver Jacobi
+  KDL::ChainFkSolverPos_recursive *rleg_fk_solver_;       // Solver Forward Kinematics
+  KDL::ChainIkSolverVel_pinv *rleg_ik_vel_solver_;        // Solver Inverse Kinematics tuyến tính vận tốc
+  KDL::ChainIkSolverPos_NR_JL *rleg_ik_pos_solver_;       // Solver Inverse Kinematics tuyến tính vị trí
+
 
 //  KDL::Chain lleg_chain_;
+  // Các solver Forward Kinematics cho cả chân phải và chân trái với cảm biến lực/torque
   KDL::ChainDynParam *lleg_dyn_param_ = NULL;
   KDL::ChainJntToJacSolver *lleg_jacobian_solver_;
   KDL::ChainFkSolverPos_recursive *lleg_fk_solver_;
@@ -79,11 +90,16 @@ protected:
   KDL::ChainFkSolverPos_recursive *rleg_ft_fk_solver_;
   KDL::ChainFkSolverPos_recursive *lleg_ft_fk_solver_;
 
-  Eigen::VectorXd rleg_joint_position_, lleg_joint_position_;
-  geometry_msgs::Pose rleg_pose_, lleg_pose_;
-  geometry_msgs::Pose rleg_ft_pose_, lleg_ft_pose_;
 
 
+  Eigen::VectorXd rleg_joint_position_;                   // Vị trí của các khớp của chân phải
+  Eigen::VectorXd lleg_joint_position_;                   // Vị trí của các khớp của chân trái
+
+  geometry_msgs::Pose rleg_pose_;                         // Vị trí và hướng của chân phải
+  geometry_msgs::Pose lleg_pose_;                         // Vị trí và hướng của chân trái
+
+  geometry_msgs::Pose rleg_ft_pose_;                      // Vị trí và hướng của chân phải với cảm biến lực/torque
+  geometry_msgs::Pose lleg_ft_pose_; 
 
 
 };

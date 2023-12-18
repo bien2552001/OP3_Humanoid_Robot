@@ -1,0 +1,8 @@
+prefix=/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/no2_modun/no1_ROBOTIS-OP3/devel
+
+Name: robotis_controller_msgs
+Description: Description of robotis_controller_msgs
+Version: 0.1.4
+Cflags: -I/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/no2_modun/no1_ROBOTIS-OP3/devel/include
+Libs: -L${prefix}/lib 
+Requires: std_msgs sensor_msgs message_runtime

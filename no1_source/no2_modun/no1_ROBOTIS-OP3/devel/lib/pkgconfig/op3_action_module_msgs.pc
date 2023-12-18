@@ -1,0 +1,8 @@
+prefix=/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/no2_modun/no1_ROBOTIS-OP3/devel
+
+Name: op3_action_module_msgs
+Description: Description of op3_action_module_msgs
+Version: 0.1.1
+Cflags: -I/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/no2_modun/no1_ROBOTIS-OP3/devel/include
+Libs: -L${prefix}/lib 
+Requires: std_msgs message_runtime

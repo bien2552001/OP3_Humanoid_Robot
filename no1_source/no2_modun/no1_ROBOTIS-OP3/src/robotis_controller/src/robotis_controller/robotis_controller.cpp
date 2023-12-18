@@ -196,6 +196,8 @@ void RobotisController::initializeSyncWrite()
   }
 }
 
+
+
 bool RobotisController::initialize(const std::string robot_file_path, const std::string init_file_path)
 {
   std::string dev_desc_dir_path = ros::package::getPath("robotis_device") + "/devices";

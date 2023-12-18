@@ -1,0 +1,8 @@
+prefix=/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/no2_modun/no1_ROBOTIS-OP3/devel
+
+Name: robotis_math
+Description: Description of robotis_math
+Version: 0.2.6
+Cflags: -I/home/bien/ros1/clone_git/clone_project/humainoid/op3/OP3_Humanoid_Robot/no1_source/no2_modun/no1_ROBOTIS-OP3/src/robotis_math/include -I/usr/include/eigen3
+Libs: -L${prefix}/lib -lrobotis_math
+Requires: roscpp
