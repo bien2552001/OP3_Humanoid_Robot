@@ -17,6 +17,7 @@
 /* Author: Kayman Jung*/
 
 #include "op3_camera_setting_tool/op3_camera_setting_tool.h"
+#include <ros/package.h>
 
 int main(int argc, char **argv)
 {
